@@ -1,4 +1,4 @@
-export function getUniqueArray(array = [], compareProps = []) {
+export function getUniqueArray(array = [], compareProps = []): any[] {
   let modifiedArray = []
 
   if (compareProps.length === 0 && array.length > 0) {

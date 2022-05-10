@@ -23,7 +23,7 @@ rl.question("YouTube video URLs (separate URLs with a space): ", answer => {
   rl.close()
 })
 
-function downloadVideoFromURL(urls: string[]) {
+function downloadVideoFromURL(urls: string[]): Promise<void> {
   const bar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic)
 
   return new Promise<void>((resolve, reject) => {

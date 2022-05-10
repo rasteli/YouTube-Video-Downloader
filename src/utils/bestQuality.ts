@@ -1,7 +1,7 @@
 import ytdl from "ytdl-core"
 import { getUniqueArray } from "./getUniqueArray"
 
-export function getBestQuality(formats: ytdl.videoFormat[]) {
+export function getBestQuality(formats: ytdl.videoFormat[]): number {
   const filteredFormats = formats
     .map(format => {
       if (format?.qualityLabel) {
