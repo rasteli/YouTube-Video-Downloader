@@ -28,7 +28,5 @@ export function getBestQuality(formats: ytdl.videoFormat[]) {
     format => format.quality.split("p")[0] == bestQuality
   )
 
-  console.log(bestFormat)
-
   return bestFormat.itag
 }

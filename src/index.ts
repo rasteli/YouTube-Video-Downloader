@@ -6,6 +6,7 @@ import cliProgress from "cli-progress"
 import * as readline from "node:readline"
 import { stdin as input, stdout as output } from "node:process"
 
+import { getDirectory } from "./utils/getDirectory"
 import { getBestQuality } from "./utils/bestQuality"
 
 const rl = readline.createInterface({ input, output })
@@ -54,7 +55,9 @@ function downloadVideoFromURL(urls: string[]) {
               bar.stop()
               callback()
             })
-            .pipe(fs.createWriteStream(filename))
+            .pipe(
+              fs.createWriteStream(`${getDirectory("Downloads")}/${filename}`)
+            )
         })
       }.bind(this),
       function (err) {
