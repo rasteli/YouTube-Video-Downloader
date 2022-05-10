@@ -1,0 +1,87 @@
+//** Function for listing available video formas from a given URL */
+/* function listAvailableFormats(formats: ytdl.videoFormat[]) {
+  function getUniqueArray(array = [], compareProps = []) {
+    let modifiedArray = []
+
+    if (compareProps.length === 0 && array.length > 0) {
+      compareProps.push(...Object.keys(array[0]))
+    }
+
+    array.forEach(item => {
+      if (modifiedArray.length === 0) {
+        modifiedArray.push(item)
+      } else if (
+        !modifiedArray.some(item2 =>
+          compareProps.every(eachProps => item2[eachProps] === item[eachProps])
+        )
+      ) {
+        modifiedArray.push(item)
+      }
+    })
+    return modifiedArray
+  }
+
+  const filteredFormats = formats
+    .map(format => {
+      if (format?.qualityLabel) {
+        return {
+          quality: format.qualityLabel,
+          itag: format.itag
+        }
+      }
+    })
+    .filter(Boolean)
+
+  const noRepeatingElementsFormats = getUniqueArray(filteredFormats, [
+    "quality"
+  ])
+
+  noRepeatingElementsFormats.forEach((format, index) => {
+    console.log(`[${index}] — ${format.quality}`)
+  })
+} */
+
+//** Function for asking multiple questions */
+/* function askQuestions() {
+  return new Promise((res, rej) => {
+    const questions = [
+      "YouTube video URLs (separate URLs with a space)",
+      "Type the number on the left to select the video quality"
+    ]
+
+    function metCondition(index: number, answer: string) {
+      const conditions = {
+        0: [answer.length === 0, "Provide at least 1 URL"],
+        1: [answer.length === 0 || answer.length > 1, "Select only 1 option"]
+      }
+
+      return conditions[index]
+    }
+
+    let chainQ = Promise.resolve([]) // resolve to active 'then' chaining (empty array for answers)
+
+    questions.forEach((question, index) => {
+      chainQ = chainQ.then(
+        answers =>
+          new Promise((resQ, rejQ) => {
+            rl.question(`${question}: `, answer => {
+              const [result, warning] = metCondition(index, answer)
+
+              if (result) {
+                console.log(warning)
+                return rl.close()
+              }
+
+              answers.push(answer)
+              resQ(answers)
+            })
+          })
+      )
+    })
+
+    chainQ.then(answers => {
+      rl.close()
+      res(answers)
+    })
+  })
+} */
