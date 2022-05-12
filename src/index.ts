@@ -20,6 +20,7 @@ rl.question("YouTube video URLs (separate URLs with a space): ", answer => {
   const videoUrls = answer.split(" ")
 
   downloadVideoFromURL(videoUrls).then(() => console.log("Download complete"))
+
   rl.close()
 })
 
@@ -38,27 +39,30 @@ function downloadVideoFromURL(urls: string[]): Promise<void> {
         let downloadStarted = false
         const filename = `${url.split("=")[1]}.mp4`
 
-        ytdl.getInfo(url).then(info => {
-          const bestQuality = getBestQuality(info.formats)
+        ytdl
+          .getInfo(url)
+          .then(info => {
+            const bestQuality = getBestQuality(info.formats)
 
-          ytdl(url, { quality: bestQuality })
-            .on("progress", (_, totalDownloaded, total) => {
-              if (!downloadStarted) {
-                console.log(url)
-                bar.start(total, 0)
-                downloadStarted = true
-              }
+            ytdl(url, { quality: bestQuality })
+              .on("progress", (_, totalDownloaded, total) => {
+                if (!downloadStarted) {
+                  console.log(url)
+                  bar.start(total, 0)
+                  downloadStarted = true
+                }
 
-              bar.update(totalDownloaded)
-            })
-            .on("end", () => {
-              bar.stop()
-              callback()
-            })
-            .pipe(
-              fs.createWriteStream(`${getDirectory("Downloads")}/${filename}`)
-            )
-        })
+                bar.update(totalDownloaded)
+              })
+              .on("end", () => {
+                bar.stop()
+                callback()
+              })
+              .pipe(
+                fs.createWriteStream(`${getDirectory("Downloads")}/${filename}`)
+              )
+          })
+          .catch(e => console.log(e.message))
       }.bind(this),
       function (err) {
         if (err) {
